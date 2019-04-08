@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\DB;
+use App\Post;
+use App\User;
+use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
     //
     public function index()
     {
-        return view('pages.homepage');
+        $posts = Post::all();
+
+        return view('pages.homepage')->with('posts', $posts);
     }
 
     public function create()
@@ -21,10 +26,18 @@ class BlogController extends Controller
         return view('pages.create', compact('userId'));
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        $description = Input::get('description');
-        $image = Input::get('image');
-        echo $image, $description;
+        $file = $request->file();
+        dd($request);
+        Storage::putFile('uploads', $request->file('image'));
+        $post = new Post();
+        $post->description = request('description');
+        $post->image = request('image');
+        $post->user_id = Auth::user()->id;
+        $post->save();
+        return redirect('home');
     }
+
+
 }

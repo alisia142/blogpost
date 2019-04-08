@@ -9,7 +9,7 @@
 
         {{--Add new Post--}}
         <div class="col-sm6">
-            {!! Form::open(['method'=>'POST', 'action'=>'BlogController@store']) !!}
+            {!! Form::open(['method'=>'POST', 'action'=>'BlogController@store', 'enctype'=>'multipart/form-data']) !!}
             @csrf
             <div class="form-group">
                 {!! Form::label('description', 'Description:') !!}
