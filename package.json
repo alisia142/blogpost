@@ -24,6 +24,7 @@
     },
     "dependencies": {
         "dns-packet": "^5.2.3",
+        "postcss": "^8.3.0",
         "uikit": "^3.0.3"
     }
 }
